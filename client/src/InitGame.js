@@ -1,5 +1,5 @@
 import { Button, Stack, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomDialog from "./components/CustomDialog";
 import socket from "./socket";
 
@@ -7,6 +7,18 @@ export default function InitGame({ setRoom, setOrientation, setPlayers }) {
   const [roomDialogOpen, setRoomDialogOpen] = useState(false);
   const [roomInput, setRoomInput] = useState(""); // input state
   const [roomError, setRoomError] = useState("");
+
+  // const [connectedClients, setConnectedClients] = useState([]);
+
+  useEffect(() => {
+    // socket.on("updateClients", (clients) => {
+    //   setConnectedClients(clients);
+    // });
+
+    return () => {
+      socket.off("updateClients");
+    };
+  }, []);
 
   return (
     <Stack
